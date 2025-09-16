@@ -97,7 +97,7 @@ const swiper = new Swiper(".mySwiper", {
       spaceBetween: 15,
     },
     // pantallas <= 480px (celular pequeño)
-    456: {
+    400: {
       slidesPerView: 1,
       spaceBetween: 10,
     }

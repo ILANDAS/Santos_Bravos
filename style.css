@@ -114,12 +114,11 @@ button:hover {
 }
 
 .stage-img {
-  width: 100px;
-  height: 100px;
+  width: 120px;   /* o el tamaño que uses en tu lineup */
+  height: 120px;
   object-fit: cover;
+  object-position: center; /* 👈 mantiene el recorte centrado */
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: transform 0.2s;
 }
 
 .stage-img:hover {
@@ -159,9 +158,9 @@ button:hover {
 
 @media (max-width: 400px) {
     .group-container {
-    width: 100%;
+    width: 70%;
     height: auto;
-    padding: 5px;
+    padding: 3px;
   }
 
   h1 {
