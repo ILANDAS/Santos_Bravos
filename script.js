@@ -73,8 +73,8 @@ function updateLineup() {
       const participant = participants.find(p => p.id === id);
       const slot = slots[index];
       slot.style.backgroundImage = `url('assets/profiles/${id}.webp')`;
-      slot.style.backgroundSize = "cover";       // recorta centrado
-      slot.style.backgroundPosition = "center";  // centra la imagen
+      slot.style.backgroundSize = "cover";       
+      slot.style.backgroundPosition = "center"; 
       slot.style.backgroundRepeat = "no-repeat"; 
     }
   });
