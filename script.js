@@ -64,16 +64,20 @@ const groupPhotoDiv = document.getElementById("group-container");
 // Función para actualizar automáticamente el lineup
 function updateLineup() {
   const slots = document.querySelectorAll(".group-container .slot");
-  slots.forEach(slot => slot.innerHTML = ""); // limpiar todos los slots
+  slots.forEach(slot => {
+    slot.innerHTML = "";       // Limpiar contenido
+    slot.style.backgroundImage = "none"; // Limpiar fondo previo
+  });
 
   selected.forEach((id, index) => {
     if (index < slots.length) {
       const participant = participants.find(p => p.id === id);
-      const img = document.createElement("img");
-      img.src = `assets/profiles/${id}.webp`;
-      img.alt = participant.name;
-      img.classList.add("stage-img");
-      slots[index].appendChild(img);
+      const slot = slots[index];
+      // Usamos background-image en lugar de <img>
+      slot.style.backgroundImage = `url('assets/profiles/${id}.webp')`;
+      slot.style.backgroundSize = "cover";       // recorta centrado
+      slot.style.backgroundPosition = "center";  // centra la imagen
+      slot.style.backgroundRepeat = "no-repeat"; // evita repeticiones
     }
   });
 }
@@ -112,7 +116,7 @@ document.getElementById("downloadLineup").addEventListener("click", () => {
   html2canvas(lineup, {
     useCORS: true,         
     backgroundColor: null, 
-    scale: 3               
+    scale: 5               
   }).then(canvas => {
     const link = document.createElement("a");
     link.download = "mi-lineup.png";
