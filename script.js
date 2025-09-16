@@ -11,7 +11,8 @@ const participants = [
   { id: "lucas", name: "Lucas Burgatti", age: 23, country: "Brasil", flag: "brasil" },
   { id: "luigi", name: "Luigi Cerrada", age: 19, country: "México/Venezuela", flag: "mexico-venezuela" },
   { id: "pablo", name: "Pablo Carns", age: 24, country: "México", flag: "mexico" },
-  { id: "priano", name: "Priano", age: 24, country: "Colombia", flag: "colombia" }
+  { id: "priano", name: "Priano", age: 24, country: "Colombia", flag: "colombia" },
+  { id: "gabi", name: "Gabi Bermúdez", age: 20, country: "Puerto Rico", flag: "puerto-rico" }
 ];
 const container = document.getElementById("participants");
 
