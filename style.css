@@ -146,38 +146,30 @@ button:hover {
   }
 
   .slot {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
   }
 
   .stage-img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
   }
 }
 
 @media (max-width: 400px) {
-    .group-container {
-    width: 70%;
-    height: auto;
-    padding: 3px;
-  }
-
-  h1 {
-    font-size: 1rem;
-  }
-
-  .swiper {
+  .group-container {
     width: 100%;
+    padding: 3px;
+    justify-content: space-between; /* reparte espacio */
   }
 
   .slot {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
   }
 
   .stage-img {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
   }
 }
