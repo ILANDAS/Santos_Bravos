@@ -107,24 +107,15 @@ const swiper = new Swiper(".mySwiper", {
 
 
 document.getElementById("downloadLineup").addEventListener("click", () => {
-  const node = document.querySelector(".group-container");
+  const lineup = document.querySelector(".group-container"); // tu contenedor
 
-  const scale = 3; // escala para mejorar calidad
-  domtoimage.toPng(node, {
-    width: node.offsetWidth * scale,
-    height: node.offsetHeight * scale,
-    style: {
-      transform: "scale(" + scale + ")",
-      transformOrigin: "top left"
-    }
-  })
-  .then((dataUrl) => {
+  html2canvas(lineup, {
+    useCORS: true, // permite imágenes externas si están en tu servidor
+    backgroundColor: null // mantiene la transparencia si la hubiera
+  }).then(canvas => {
     const link = document.createElement("a");
-    link.download = "mi-lineup.png";
-    link.href = dataUrl;
+    link.download = "mi-lineup.png"; // nombre del archivo
+    link.href = canvas.toDataURL("image/png");
     link.click();
-  })
-  .catch((error) => {
-    console.error("Error al generar imagen:", error);
   });
 });
