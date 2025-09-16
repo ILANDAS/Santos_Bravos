@@ -107,14 +107,15 @@ const swiper = new Swiper(".mySwiper", {
 
 
 document.getElementById("downloadLineup").addEventListener("click", () => {
-  const lineup = document.querySelector(".group-container"); // tu contenedor
+  const lineup = document.querySelector(".group-container");
 
   html2canvas(lineup, {
-    useCORS: true, // permite imágenes externas si están en tu servidor
-    backgroundColor: null // mantiene la transparencia si la hubiera
+    useCORS: true,         
+    backgroundColor: null, 
+    scale: 3               
   }).then(canvas => {
     const link = document.createElement("a");
-    link.download = "mi-lineup.png"; // nombre del archivo
+    link.download = "mi-lineup.png";
     link.href = canvas.toDataURL("image/png");
     link.click();
   });
