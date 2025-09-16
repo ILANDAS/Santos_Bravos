@@ -35,7 +35,6 @@ participants.forEach(p => {
 const maxSelection = 5;
 let selected = [];
 
-// Selección de cards
 container.addEventListener("click", (e) => {
   const card = e.target.closest(".card");
   if (!card) return;
@@ -52,33 +51,36 @@ container.addEventListener("click", (e) => {
     card.classList.add("selected");
     selected.push(id);
   }
+
+  updateLineup(); // 👉 actualizar automáticamente
 });
+
 
 const formGroupBtn = document.getElementById("form-group");
-const groupPhotoDiv = document.getElementById("group-photo");
 
-formGroupBtn.addEventListener("click", () => {
-  groupPhotoDiv.innerHTML = "";
-  if (selected.length === 0) {
-    alert("Selecciona al menos 1 participante.");
-    return;
-  }
-  selected.forEach(id => {
-    const img = document.createElement("img");
-    img.src = `assets/pngs/${id}.png`;
-    groupPhotoDiv.appendChild(img);
+const groupPhotoDiv = document.getElementById("group-container");
+
+// Función para actualizar automáticamente el lineup
+function updateLineup() {
+  const slots = document.querySelectorAll(".group-container .slot");
+  slots.forEach(slot => slot.innerHTML = ""); // limpiar todos los slots
+
+  selected.forEach((id, index) => {
+    if (index < slots.length) {
+      const participant = participants.find(p => p.id === id);
+      const img = document.createElement("img");
+      img.src = `assets/profiles/${id}.webp`;
+      img.alt = participant.name;
+      img.classList.add("stage-img");
+      slots[index].appendChild(img);
+    }
   });
-});
+}
 
-// Inicializar Swiper
+
 const swiper = new Swiper(".mySwiper", {
-  slidesPerView: 5,
+  slidesPerView: 5, // en escritorio
   spaceBetween: 20,
-  loop: true,
-  autoplay: {
-    delay: 3000,
-    disableOnInteraction: false,
-  },
   navigation: {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
@@ -87,4 +89,32 @@ const swiper = new Swiper(".mySwiper", {
     el: ".swiper-pagination",
     clickable: true,
   },
+  breakpoints: {
+    // pantallas <= 768px (tablet / celular)
+    768: {
+      slidesPerView: 5, 
+      spaceBetween: 15,
+    },
+    // pantallas <= 480px (celular pequeño)
+    456: {
+      slidesPerView: 1,
+      spaceBetween: 10,
+    }
+  }
+});
+
+
+
+document.getElementById("downloadLineup").addEventListener("click", () => {
+  const lineup = document.querySelector(".group-container"); // tu contenedor
+
+  html2canvas(lineup, {
+    useCORS: true, // permite imágenes externas si están en tu servidor
+    backgroundColor: null // mantiene la transparencia si la hubiera
+  }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "mi-lineup.png"; // nombre del archivo
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
 });
