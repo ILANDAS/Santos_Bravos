@@ -107,38 +107,24 @@ const swiper = new Swiper(".mySwiper", {
 
 
 document.getElementById("downloadLineup").addEventListener("click", () => {
-  const lineup = document.querySelector(".group-container");
+  const node = document.querySelector(".group-container");
 
-  domtoimage.toPng(lineup)
-    .then(function(dataUrl) {
-      const link = document.createElement("a");
-      link.download = "mi-lineup.png";
-      link.href = dataUrl;
-      link.click();
-    })
-    .catch(function(error) {
-      console.error("Error al generar la imagen:", error);
-    });
-});
-
-const node = document.querySelector(".group-container");
-
-const scale = 3; 
-
-domtoimage.toPng(node, {
-  width: node.offsetWidth * scale,
-  height: node.offsetHeight * scale,
-  style: {
-    transform: "scale(" + scale + ")",
-    transformOrigin: "top left"
-  }
-})
-.then(function (dataUrl) {
-  const link = document.createElement("a");
-  link.download = "mi-lineup.png";
-  link.href = dataUrl;
-  link.click();
-})
-.catch(function (error) {
-  console.error("Error al generar imagen:", error);
+  const scale = 3; // escala para mejorar calidad
+  domtoimage.toPng(node, {
+    width: node.offsetWidth * scale,
+    height: node.offsetHeight * scale,
+    style: {
+      transform: "scale(" + scale + ")",
+      transformOrigin: "top left"
+    }
+  })
+  .then((dataUrl) => {
+    const link = document.createElement("a");
+    link.download = "mi-lineup.png";
+    link.href = dataUrl;
+    link.click();
+  })
+  .catch((error) => {
+    console.error("Error al generar imagen:", error);
+  });
 });
