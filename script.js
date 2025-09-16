@@ -120,3 +120,25 @@ document.getElementById("downloadLineup").addEventListener("click", () => {
       console.error("Error al generar la imagen:", error);
     });
 });
+
+const node = document.querySelector(".group-container");
+
+const scale = 3; 
+
+domtoimage.toPng(node, {
+  width: node.offsetWidth * scale,
+  height: node.offsetHeight * scale,
+  style: {
+    transform: "scale(" + scale + ")",
+    transformOrigin: "top left"
+  }
+})
+.then(function (dataUrl) {
+  const link = document.createElement("a");
+  link.download = "mi-lineup.png";
+  link.href = dataUrl;
+  link.click();
+})
+.catch(function (error) {
+  console.error("Error al generar imagen:", error);
+});
