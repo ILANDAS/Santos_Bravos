@@ -124,7 +124,7 @@ const swiper = new Swiper(".mySwiper", {
 
 document.getElementById("downloadLineup").addEventListener("click", () => {
   const lineup = document.querySelector(".group-container");
-  const scale = 3; // multiplicador de resolución
+  const scale = 2; // multiplicador de resolución
 
   html2canvas(lineup, {
     useCORS: true,
