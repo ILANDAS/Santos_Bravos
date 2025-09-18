@@ -19,8 +19,8 @@ h1 {
 }
 
 .swiper {
-  width: 90%; /* más flexible */
-  max-width: 1000px; /* en pantallas grandes */
+  width: 90%;
+  max-width: 1000px;
   height: auto;
   margin: auto;
   padding: 10px 0;
@@ -38,9 +38,7 @@ h1 {
   overflow: hidden;
 }
 
-.card:hover {
-  transform: scale(1.05);
-}
+.card:hover { transform: scale(1.05); }
 
 .card.selected {
   border: 3px solid #f6ff00;
@@ -63,123 +61,107 @@ button {
   border-radius: 8px;
   cursor: pointer;
 }
+button:hover { background: #f6ff00; color: black; }
 
-button:hover {
-  background: #f6ff00;
-  color: black;
-}
 
 .group-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin: 20px auto;
-  padding: 20px;
-  background: url("assets/fondo.png") no-repeat center center;
-  background-size: cover;
-  border-radius: 16px;
-  flex-wrap: wrap;
-  width: 90%;
+  position: relative;
+  width: 100%;
   max-width: 700px;
-  height: auto; /* se adapta */
-  min-height: 300px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: repeat(5, auto); /* auto en vez de 1fr */
+  grid-template-rows: auto auto;
+  gap: 5px 10px;   /* controla separación: row-gap 5px, col-gap 10px */
+  background: url("assets/fondo3.png") no-repeat center top;
+  background-size: cover;
+  padding: 140px 20px 130px;
+  box-sizing: border-box;
 }
 
+/* Fila superior */
+.group-container .slot:nth-child(1) { grid-column: 1; grid-row: 1; }
+.group-container .slot:nth-child(2) { grid-column: 3; grid-row: 1; }
+.group-container .slot:nth-child(3) { grid-column: 5; grid-row: 1; }
+
+/* Fila inferior */
+.group-container .slot:nth-child(4) { grid-column: 2; grid-row: 2; margin-top: -4px; }
+.group-container .slot:nth-child(5) { grid-column: 4; grid-row: 2; margin-top: -4px; }
+
+/* Slot */
 .slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 120px; /* más compacto */
+}
+
+/* Círculo */
+.circle {
   width: 120px;
   height: 120px;
-  border: 2px dashed #ccc;
-  border-radius: 12px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #d6d6d6;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+  border: 3px solid rgba(255,255,255,0.6);
 }
 
-.slot img {
+.circle img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.stage {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin: 20px auto;
-  max-width: 800px;
+/* Nombre */
+.name {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111;
 }
 
-/* Foto en el lineup */
-.stage-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;  /* centra y recorta */
-  object-position: center;
-  border-radius: 10px; /* opcional */
-}
 
-/* Foto dentro de las cards */
-.profile {
-  width: 100%;
-  height: 200px; /* ajusta según tu diseño */
-  object-fit: cover;  /* centra y recorta */
-  object-position: center;
-  border-radius: 10px; /* opcional */
-}
+/* Opcional: estilo cuando slot está vacío vs ocupado (puedes cambiar con JS) */
+.slot.empty .circle { background: #d6d6d6; }
+.slot.filled .circle { background: transparent; }
 
-.stage-img:hover {
-  transform: scale(1.05);
-}
-
-.group-photo img {
-  width: 100px;
-}
-
-/* 📱 Media Queries para móviles */
-@media (max-width: 768px) {
+/* -----------------------------
+   Responsividad: móviles / tablets
+   ----------------------------- */
+@media (max-width: 700px) {
   .group-container {
-    width: 100%;
-    height: auto;
-    padding: 5px;
+    max-width: 540px;
+    padding: 120px 16px 30px;
+    gap: 10px 12px;
+    grid-template-columns: repeat(5, 1fr); /* mantenemos 5 cols para conservar la posición, pero reducimos sizes */
   }
-  h1 {
-    font-size: 1.2rem;
-  }
-
-  .card img.profile {
-    width: 80px;
-    height: 80px;
-  }
-
-  .slot {
-    width: 60px;
-    height: 60px;
-  }
-
-  .stage-img {
-    width: 60px;
-    height: 60px;
-  }
+  .slot { width: 110px; }
+  .circle { width: 110px; height: 110px; }
+  .name { font-size: 13px; }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+  /* En pantallas muy estrechas reorganizamos a 3 columnas visibles (fila 1: 3, fila 2: 2 centrados) */
   .group-container {
-    width: 100%;
-    padding: 3px;
-    justify-content: space-between; /* reparte espacio */
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    padding: 100px 12px 24px;
+    gap: 8px 8px;
   }
 
-  .slot {
-    width: 60px;
-    height: 60px;
-  }
+  /* reasignamos posiciones para 3-cols */
+  .group-container .slot:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .group-container .slot:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .group-container .slot:nth-child(3) { grid-column: 3; grid-row: 1; }
+  .group-container .slot:nth-child(4) { grid-column: 1; grid-row: 2; justify-self: center; margin-top: -8px; }
+  .group-container .slot:nth-child(5) { grid-column: 3; grid-row: 2; justify-self: center; margin-top: -8px; }
 
-  .stage-img {
-    width: 60px;
-    height: 60px;
-  }
+  .slot { width: 84px; }
+  .circle { width: 84px; height: 84px; }
+  .name { font-size: 11px; margin-top: 6px; }
 }

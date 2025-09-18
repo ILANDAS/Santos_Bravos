@@ -63,22 +63,36 @@ const groupPhotoDiv = document.getElementById("group-container");
 
 function updateLineup() {
   const slots = document.querySelectorAll(".group-container .slot");
+
+  // Resetear todos los slots a estado vacío
   slots.forEach(slot => {
-    slot.innerHTML = "";
-    slot.style.backgroundImage = "none";
+    slot.classList.add("empty");
+    slot.classList.remove("filled");
+
+    const circle = slot.querySelector(".circle");
+    const name = slot.querySelector(".name");
+
+    circle.innerHTML = ""; // vacío pero mantiene el fondo gris
+    name.textContent = ""; // sin texto cuando está vacío
   });
 
+  // Colocar seleccionados
   selected.forEach((id, index) => {
     if (index < slots.length) {
       const participant = participants.find(p => p.id === id);
       const slot = slots[index];
-      slot.style.backgroundImage = `url('assets/profiles/${id}.webp')`;
-      slot.style.backgroundSize = "cover";       
-      slot.style.backgroundPosition = "center"; 
-      slot.style.backgroundRepeat = "no-repeat"; 
+
+      slot.classList.remove("empty");
+      slot.classList.add("filled");
+
+      const circle = slot.querySelector(".circle");
+      const name = slot.querySelector(".name");
+
+      circle.innerHTML = `<img src="assets/profiles/${id}.webp" alt="${participant.name}">`;
+      name.textContent = participant.name;
     }
   });
-};
+}
 
 
 const swiper = new Swiper(".mySwiper", {
@@ -110,7 +124,7 @@ const swiper = new Swiper(".mySwiper", {
 
 document.getElementById("downloadLineup").addEventListener("click", () => {
   const lineup = document.querySelector(".group-container");
-  const scale = 5; // multiplicador de resolución
+  const scale = 3; // multiplicador de resolución
 
   html2canvas(lineup, {
     useCORS: true,
